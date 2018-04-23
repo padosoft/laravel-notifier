@@ -41,7 +41,7 @@ class Notifier
     }
 
     /**
-     * Render the notifications' script to insert into script tag
+     * Render all the notifications' script to insert into script tag
      *
      * @return string
      *
@@ -57,16 +57,33 @@ class Notifier
 
         foreach ($notifications as $notification) {
 
-            $output .= "
+            $output .= $this->renderNotification($notification);
+        }
+
+        return $output;
+    }
+
+    /**
+     * Render the script of given notification to insert into script tag
+     *
+     * @param $notification
+     * @return string
+     */
+    public function renderNotification($notification): string
+    {
+        $title =  (isset($notification['title']) ? str_replace("'", "\\'",
+            htmlentities($notification['title'])) : null) ;
+        $message = $notification['message'];
+        $type = $notification['type'];
+
+        $output = "
                 $(function () {
                     new Notifier({
-                        title: '" . (isset($notification['title']) ? str_replace("'", "\\'",
-                    htmlentities($notification['title'])) : null) . "',
-                        text: '" . $notification['message'] . "',
-                        type: '" . $notification['type'] . "'
+                        title: '" .$title. "',
+                        text: '" . $message . "',
+                        type: '" . $type . "'
                     });
                 });";
-        }
 
         return $output;
     }
