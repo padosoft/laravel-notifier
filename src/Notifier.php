@@ -156,6 +156,9 @@ class Notifier
     public function clear(bool $withSession = true)
     {
         $this->notifications = [];
-        $this->session->forget('laravel::notifications');
+
+        if($withSession){
+            $this->session->forget('laravel::notifications');
+        }
     }
 }

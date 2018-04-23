@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/padosoft/laravel-notifier.svg?style=flat-square)](https://packagist.org/packages/padosoft/laravel-notifier)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/padosoft/laravel-notifier/master.svg?style=flat-square)](https://travis-ci.org/padosoft/laravel-notifier)
 [![Quality Score](https://img.shields.io/scrutinizer/g/padosoft/laravel-notifier.svg?style=flat-square)](https://scrutinizer-ci.com/g/padosoft/laravel-notifier)
 [![Total Downloads](https://img.shields.io/packagist/dt/padosoft/laravel-notifier.svg?style=flat-square)](https://packagist.org/packages/padosoft/laravel-notifier)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/3a39da13-6f5f-4041-9700-81e8c1f2e387.svg?style=flat-square)](https://insight.sensiolabs.com/projects/3a39da13-6f5f-4041-9700-81e8c1f2e387)
