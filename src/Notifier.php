@@ -70,29 +70,26 @@ class Notifier
      * @return string
      */
     public function renderNotification($notification): string
-    {
-        $title =  (isset($notification['title']) ? str_replace("'", "\\'",
-            htmlentities($notification['title'])) : null) ;
-        $message = $notification['message'];
-        $type = $notification['type'];
-
-        $output = "
+    {        
+		$theme = (isset($notification['theme']) ? $notification['theme'] : 'metroui');
+		$timeout = (isset($notification['timeout']) ? $notification['timeout'] : 2000);
+		$text = (isset($notification['text']) ? str_replace("'", "\\'", htmlentities($notification['text'])) : null);
+        $message = (isset($notification['message']) ? $notification['message'] : '');
+        $type = (isset($notification['type']) ? $notification['type'] : 'info');
+		$layout = (isset($notification['layout']) ? $notification['layout'] : 'topRight');
+		
+        $output = "				
                 $(function () {
                     new Noty({            
-                        theme: 'metroui',
-                        timeout: 2000,
-                        type: 'info',
-                        layout: 'topRight',
-                        text: 'Azione effettuata'
-                    }).show();                                                                            
-                });";
-        /*
-        new Notifier({
-            title: '" .$title. "',
-            text: '" . $message . "',
-            type: '" . $type . "'
-        });
-        */        
+						theme: '".$theme."',
+						timeout: '".$timeout."',
+						type: '".$type."',
+						layout: '".$layout."',
+						text: '".$text."'
+					}).show();            
+                });				
+				";
+        
         return $output;
     }
 
@@ -100,23 +97,25 @@ class Notifier
      * Add a notification
      *
      * @param string $type Could be error, info, success, or warning.
-     * @param string $message The notification's message
+     * @param string $text The notification's message
      * @param string $title The notification's title
      * @param array $options
      * @param bool $onlyNextRequest if true(default), se the notification in session only for the next request
      *
      */
-    public function add($type, $message, $title = null, array $options = [], bool $onlyNextRequest=true)
+    public function add($theme, $timeout, $type, $layout, $text, array $options = [], bool $onlyNextRequest=true)
     {
         if ($type=='') {
             $type = 'info';
         }
 
         $this->notifications[] = [
+            'theme' => $theme,
+            'timeout' => $timeout,
             'type' => $type,
-            'title' => $title,
-            'message' => $message,
-            'options' => $options
+			'layout' => $layout,
+			'text' => $text,
+			'options' => $options
         ];
 
         if($onlyNextRequest){
@@ -133,21 +132,21 @@ class Notifier
      * @param string $title The notification's title
      * @param array $options
      */
-    public function info($message, $title = null, array $options = [])
+    public function info($text, array $options = [])
     {
-        $this->add('info', $message, $title, $options);
+        $this->add('metroui', 2000, 'info', 'topRight', $text, array(), true);
     }
-
-    /**
+	
+	/**
      * Shortcut for adding an error notification
      *
      * @param string $message The notification's message
      * @param string $title The notification's title
      * @param array $options
      */
-    public function error($message, $title = null, array $options = [])
+    public function error($text, array $options = [])
     {
-        $this->add('error', $message, $title, $options);
+        $this->add('metroui', 2000, 'error', 'topRight', $text, array(), true);
     }
 
     /**
@@ -157,9 +156,9 @@ class Notifier
      * @param string $title The notification's title
      * @param array $options
      */
-    public function warning($message, $title = null, array $options = [])
+    public function warning($text, array $options = [])
     {
-        $this->add('warning', $message, $title, $options);
+        $this->add('metroui', 2000, 'warning', 'topRight', $text, array(), true);
     }
 
     /**
@@ -169,10 +168,11 @@ class Notifier
      * @param string $title The notification's title
      * @param array $options
      */
-    public function success($message, $title = null, array $options = [])
+    public function success($text, array $options = [])
     {
-        $this->add('success', $message, $title, $options);
+        $this->add('metroui', 2000, 'success', 'topRight', $text, array(), true);
     }
+    
 
     /**
      * Clear all notifications
