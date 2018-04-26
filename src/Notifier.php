@@ -78,13 +78,21 @@ class Notifier
 
         $output = "
                 $(function () {
-                    new Notifier({
-                        title: '" .$title. "',
-                        text: '" . $message . "',
-                        type: '" . $type . "'
-                    });
+                    new Noty({            
+                        theme: 'metroui',
+                        timeout: 2000,
+                        type: 'info',
+                        layout: 'topRight',
+                        text: 'Azione effettuata'
+                    }).show();                                                                            
                 });";
-
+        /*
+        new Notifier({
+            title: '" .$title. "',
+            text: '" . $message . "',
+            type: '" . $type . "'
+        });
+        */        
         return $output;
     }
 
