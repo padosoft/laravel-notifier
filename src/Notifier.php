@@ -47,8 +47,8 @@ class Notifier
      *
      */
     public function render() : string
-    {
-        $notifications = $this->session->get('laravel::notifications');
+    {        
+		$notifications = $this->session->get('laravel::notifications');
         if (!$notifications) {
             $notifications = [];
         }
@@ -73,7 +73,7 @@ class Notifier
     {        
 		$theme = (isset($notification['theme']) ? $notification['theme'] : 'metroui');
 		$timeout = (isset($notification['timeout']) ? $notification['timeout'] : 2000);
-		$text = (isset($notification['text']) ? str_replace("'", "\\'", htmlentities($notification['text'])) : null);
+		$text = (isset($notification['text']) ? str_replace("'", "\\'", $notification['text']) : null);
         $message = (isset($notification['message']) ? $notification['message'] : '');
         $type = (isset($notification['type']) ? $notification['type'] : 'info');
 		$layout = (isset($notification['layout']) ? $notification['layout'] : 'topRight');
@@ -133,8 +133,12 @@ class Notifier
      * @param array $options
      */
     public function info($text, array $options = [])
-    {
-        $this->add('metroui', 2000, 'info', 'topRight', $text, array(), true);
+    {        										
+		$theme = ( isset($options['theme']) && $options['theme'] != '' ) ? $options['theme'] : 'metroui';
+		$timeout = ( isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout']) ) ? $options['timeout'] : 0; 	
+		$position = ( isset($options['position']) && $options['position'] != '' ) ? $options['position'] : 'topRight'; 	
+				
+		$this->add($theme, $timeout, 'info', $position, $text, array(), true);
     }
 	
 	/**
@@ -145,8 +149,12 @@ class Notifier
      * @param array $options
      */
     public function error($text, array $options = [])
-    {
-        $this->add('metroui', 2000, 'error', 'topRight', $text, array(), true);
+    {        
+		$theme = ( isset($options['theme']) && $options['theme'] != '' ) ? $options['theme'] : 'metroui';
+		$timeout = ( isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout']) ) ? $options['timeout'] : 0; 	
+		$position = ( isset($options['position']) && $options['position'] != '' ) ? $options['position'] : 'topRight'; 	
+				
+		$this->add($theme, $timeout, 'error', $position, $text, array(), true);				
     }
 
     /**
@@ -156,9 +164,13 @@ class Notifier
      * @param string $title The notification's title
      * @param array $options
      */
-    public function warning($text, array $options = [])
+    public function warning($text, array $options = [])	
     {
-        $this->add('metroui', 2000, 'warning', 'topRight', $text, array(), true);
+		$theme = ( isset($options['theme']) && $options['theme'] != '' ) ? $options['theme'] : 'metroui';
+		$timeout = ( isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout']) ) ? $options['timeout'] : 0; 	
+		$position = ( isset($options['position']) && $options['position'] != '' ) ? $options['position'] : 'topRight'; 			
+		
+		$this->add($theme, $timeout, 'warning', $position, $text, array(), true);        
     }
 
     /**
@@ -170,7 +182,11 @@ class Notifier
      */
     public function success($text, array $options = [])
     {
-        $this->add('metroui', 2000, 'success', 'topRight', $text, array(), true);
+        $theme = ( isset($options['theme']) && $options['theme'] != '' ) ? $options['theme'] : 'metroui';
+		$timeout = ( isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout']) ) ? $options['timeout'] : 0; 	
+		$position = ( isset($options['position']) && $options['position'] != '' ) ? $options['position'] : 'topRight'; 	
+				
+		$this->add($theme, $timeout, 'success', $position, $text, array(), true);		
     }
     
 
