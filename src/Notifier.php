@@ -72,7 +72,7 @@ class Notifier
     public function renderNotification($notification): string
     {
         $theme = (isset($notification['theme']) ? $notification['theme'] : 'metroui');
-        $timeout = ((isset($notification['timeout']) && $options['timeout'] != '' && is_int($options['timeout']) && $options['timeout']>0) ? $notification['timeout'] : false);
+        $timeout = ((isset($notification['timeout']) && $notification['timeout'] != '' && is_int($notification['timeout']) && $notification['timeout']>0) ? $notification['timeout'] : false);
 		$text = (isset($notification['text']) ? str_replace("'", "\\'", $notification['text']) : null);
         $message = (isset($notification['message']) ? $notification['message'] : '');
         $type = (isset($notification['type']) ? $notification['type'] : 'info');
