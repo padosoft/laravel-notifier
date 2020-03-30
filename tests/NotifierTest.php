@@ -8,11 +8,10 @@ class NotifierTest extends TestBaseOrchestra
 {
     protected $notifier;
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
-
-        $this->notifier = new Notifier($this->app['session']);
+        $this->notifier = new Notifier(session());
     }
 
     /**

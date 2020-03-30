@@ -30,8 +30,8 @@ Table of Contents
 ##Requires
   
 - "php" : ">=7.0.0",
-- "illuminate/support": "^5.0",
-- "illuminate/session": ">=5.0.0"
+- "illuminate/support": "^5.0|^6.0|^7.0",
+- "illuminate/session": "^5.0|^6.0|^7.0"
   
 ## Installation
 

@@ -3,8 +3,6 @@
 namespace Padosoft\Laravel\Notification\Notifier\Test;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Padosoft\Test\traits\ReflectionTestable;
-
 /**
  * Class TestBaseOrchestra for Laravel Test
  * @package Padosoft\Laravel\Notification\Notifier\Test
@@ -21,7 +19,7 @@ class TestBaseOrchestra extends Orchestra
     /**
      *
      */
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
 
