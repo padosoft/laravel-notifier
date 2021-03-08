@@ -45,11 +45,14 @@ class Notifier
     public function __construct(SessionManager $session)
     {
         $this->session = $session;
-        $flashedNotifications = $this->session->get('laravel::flash-notifications');
+        $flashedNotifications = null;
+
+        if ($this->session->has('laravel::flash-notifications')) {
+            $flashedNotifications = $this->session->get('laravel::flash-notifications');
+        }
         if ($flashedNotifications !== null) {
             $this->flashedNotifications = $flashedNotifications;
-        }
-        if($flashedNotifications === null){
+        } else {
             $this->flashedNotifications = [];
         }
     }
@@ -63,17 +66,13 @@ class Notifier
     public function render(): string
     {
         $output = [];
-
         foreach ($this->notifications as $notification) {
 
             $output[] = $notification;
         }
         foreach ($this->flashedNotifications as $flNotification) {
-
             $output[] = $flNotification;
         }
-
-        $this->session->forget('laravel::flash-notifications');
 
         return "window.notifications = " . json_encode($output) . ";";
     }
@@ -88,7 +87,7 @@ class Notifier
      * @param bool $onlyNextRequest if true(default), se the notification in session only for the next request
      *
      */
-    public function add($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null, bool $onlyNextRequest = true)
+    public function add($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null)
     {
         if ($type == '') {
             $type = 'info';
@@ -105,21 +104,48 @@ class Notifier
             'layout' => $layout,
             'text' => $text,
         ];
-        if($sounds !== null){
+        if ($sounds !== null) {
             $notification['sources'] = [
                 'sounds' => [$sounds],
                 'soundsVolume' => $soundsVolume !== null ? $soundsVolume : 0.5,
             ];
         }
 
-        if ($onlyNextRequest) {
-            $flashNotifications = $this->session->get('laravel::flash-notifications');
-            $this->session->forget('laravel::flash-notifications');
-            $flashNotifications[] = $notification;
-            $this->session->flash('laravel::flash-notifications', $flashNotifications);
-        } else {
-            $this->notifications[] = $notification;
+        $this->notifications[] = $notification;
+    }
+
+    public function addForNextRequest($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null)
+    {
+        if ($type == '') {
+            $type = 'info';
         }
+
+        if ($timeout === null) {
+            $timeout = false;
+        }
+
+        $notification = [
+            'theme' => $theme,
+            'timeout' => $timeout,
+            'type' => $type,
+            'layout' => $layout,
+            'text' => $text,
+        ];
+        if ($sounds !== null) {
+            $notification['sources'] = [
+                'sounds' => [$sounds],
+                'soundsVolume' => $soundsVolume !== null ? $soundsVolume : 0.5,
+            ];
+        }
+
+        if ($this->session->has('laravel::flash-notifications')) {
+            $flashNotifications = $this->session->get('laravel::flash-notifications');
+        } else {
+            $flashNotifications = [];
+        }
+        $this->session->forget('laravel::flash-notifications');
+        $flashNotifications[] = $notification;
+        $this->session->flash('laravel::flash-notifications', $flashNotifications);
     }
 
     /**
@@ -182,7 +208,6 @@ class Notifier
         $theme = (isset($options['theme']) && $options['theme'] != '') ? $options['theme'] : 'metroui';
         $timeout = (isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout'])) ? $options['timeout'] : 0;
         $layout = (isset($options['layout']) && $options['layout'] != '') ? $options['layout'] : 'topRight';
-
         $this->add($theme, $timeout, 'success', $layout, $text, null, null, $onlyNextRequest);
     }
 
