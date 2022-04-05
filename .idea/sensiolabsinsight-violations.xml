@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysis>
+  <link href="https://insight.sensiolabs.com/api/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1" rel="self" type="application/vnd.com.sensiolabs.insight+xml"/>
+  <link href="https://insight.sensiolabs.com/api/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1/status" rel="status" type="application/vnd.com.sensiolabs.insight+xml"/>
+  <link href="https://insight.sensiolabs.com/api/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1" rel="project" type="application/vnd.com.sensiolabs.insight+xml"/>
+  <link href="https://insight.sensiolabs.com/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1" rel="self" type="text/html"/>
+  <status><![CDATA[finished]]></status>
+  <violations>
+    <violation severity="info" category="bugrisk" ignored="false">
+      <line>0</line>
+      <resource><![CDATA[composer.lock]]></resource>
+      <title>The composer.lock is not up to date.</title>
+      <message><![CDATA[The lock file is not up to date with the latest changes in composer.json. You may be getting outdated dependencies. Run update to update them.]]></message>
+      <context/>
+      <link href="https://insight.sensiolabs.com/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1?status=new#622769854" rel="self" type="text/html"/>
+    </violation>
+    <violation severity="minor" category="deadcode" ignored="false">
+      <line>156</line>
+      <resource><![CDATA[src/Notifier.php]]></resource>
+      <title>Unused method, property, variable or parameter</title>
+      <message><![CDATA[This withSession argument is declared but never used. You should remove it.]]></message>
+      <context start-line="151" end-line="161"><![CDATA[
+    /**
+     * Clear all notifications
+     * @param bool $withSession if true (default) clean notifications in session too.
+     */
+    public function clear(bool $withSession = true)
+    {
+        $this->notifications = [];
+        $this->session->forget('laravel::notifications');
+    }
+}]]></context>
+      <link href="https://insight.sensiolabs.com/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1?status=new#622769856" rel="self" type="text/html"/>
+    </violation>
+    <violation severity="major" category="performance" ignored="false">
+      <line>0</line>
+      <resource><![CDATA[./]]></resource>
+      <title>Web applications should contain a favicon</title>
+      <message><![CDATA[No favicon found in the web root directory]]></message>
+      <context/>
+      <link href="https://insight.sensiolabs.com/projects/89f2edc8-309c-4e48-8bc0-76c3a7b147d1/analyses/1?status=new#622769855" rel="self" type="text/html"/>
+    </violation>
+  </violations>
+  <grades>
+    <entry><![CDATA[none]]></entry>
+    <entry><![CDATA[bronze]]></entry>
+    <entry><![CDATA[silver]]></entry>
+    <entry><![CDATA[gold]]></entry>
+    <entry><![CDATA[platinum]]></entry>
+  </grades>
+  <failed>false</failed>
+  <grade><![CDATA[bronze]]></grade>
+  <next-grade><![CDATA[silver]]></next-grade>
+  <begin-at><![CDATA[2018-04-23T16:41:39+0200]]></begin-at>
+  <end-at><![CDATA[2018-04-23T16:42:10+0200]]></end-at>
+  <duration>2</duration>
+  <number>1</number>
+  <altered>false</altered>
+  <remediation-cost>2.25</remediation-cost>
+  <nb-violations>3</nb-violations>
+  <reference><![CDATA[3f1f259b43e655b1525a050cdefa926fab7c452e]]></reference>
+  <launched-by><![CDATA[lopadova]]></launched-by>
+  <configuration>
+    <ignored-branches>
+      <branch><![CDATA[gh-pages]]></branch>
+    </ignored-branches>
+    <pre-composer-script/>
+    <post-composer-script/>
+    <working-directory/>
+    <php-version/>
+    <php-ini/>
+    <commit-failure-conditions>
+      <branch><![CDATA[project.severity.critical > 0]]></branch>
+      <branch><![CDATA[project.severity.major > 0]]></branch>
+    </commit-failure-conditions>
+    <global-excluded-dirs>
+      <dir><![CDATA[vendor]]></dir>
+      <dir><![CDATA[vendors]]></dir>
+      <dir><![CDATA[test]]></dir>
+      <dir><![CDATA[tests]]></dir>
+      <dir><![CDATA[Tests]]></dir>
+      <dir><![CDATA[spec]]></dir>
+      <dir><![CDATA[features]]></dir>
+      <dir><![CDATA[Fixtures]]></dir>
+      <dir><![CDATA[DataFixtures]]></dir>
+      <dir><![CDATA[var]]></dir>
+    </global-excluded-dirs>
+    <excluded-patterns>
+      <pattern><![CDATA[app/check.php]]></pattern>
+      <pattern><![CDATA[app/SymfonyRequirements.php]]></pattern>
+      <pattern><![CDATA[public/index.php]]></pattern>
+      <pattern><![CDATA[web/config.php]]></pattern>
+      <pattern><![CDATA[web/app_*.php]]></pattern>
+    </excluded-patterns>
+    <patterns>
+      <file>
+        <pattern><![CDATA[*.php]]></pattern>
+        <pattern><![CDATA[*.twig]]></pattern>
+        <pattern><![CDATA[*.xml]]></pattern>
+        <pattern><![CDATA[*.yml]]></pattern>
+        <pattern><![CDATA[*.yaml]]></pattern>
+        <pattern><![CDATA[*.ini]]></pattern>
+        <pattern><![CDATA[*.dist]]></pattern>
+        <pattern><![CDATA[*.sql]]></pattern>
+        <pattern><![CDATA[*.md]]></pattern>
+        <pattern><![CDATA[*.rst]]></pattern>
+        <pattern><![CDATA[composer.*]]></pattern>
+        <pattern><![CDATA[.gitignore]]></pattern>
+        <pattern><![CDATA[LICENSE]]></pattern>
+        <pattern><![CDATA[README]]></pattern>
+        <pattern><![CDATA[Makefile]]></pattern>
+        <pattern><![CDATA[.htaccess]]></pattern>
+      </file>
+      <php>
+        <pattern><![CDATA[*.php]]></pattern>
+      </php>
+      <twig>
+        <pattern><![CDATA[*.twig]]></pattern>
+      </twig>
+    </patterns>
+    <rules>
+      <rule name="symfony.use_dir_file_constant" enabled="false"/>
+    </rules>
+    <parameters>
+      <parameter name="project_type">1</parameter>
+    </parameters>
+    <env/>
+    <notifications/>
+  </configuration>
+  <previous-analyses-references>
+    <analysis-reference number="1">3f1f259b43e655b1525a050cdefa926fab7c452e</analysis-reference>
+  </previous-analyses-references>
+  <nb-violations-new>3</nb-violations-new>
+  <nb-violations-existing>0</nb-violations-existing>
+  <nb-violations-fixed>0</nb-violations-fixed>
+  <nb-violations-ignored>0</nb-violations-ignored>
+</analysis>
