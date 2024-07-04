@@ -31,14 +31,14 @@ class Notifier
     /**
      * Illuminate Session
      *
-     * @var \Illuminate\Session\SessionManager
+     * @var SessionManager
      */
     protected $session;
 
     /**
      * Constructor
      *
-     * @param \Illuminate\Session\SessionManager $session
+     * @param SessionManager $session
      *
      * @internal param \Illuminate\Session\SessionManager $session
      */
@@ -158,14 +158,15 @@ class Notifier
     /**
      * Add a notification
      *
+     * @param $theme
+     * @param $timeout
      * @param string $type Could be error, info, success, or warning.
-     * @param string $text The notification's message
-     * @param string $title The notification's title
-     * @param array $options
-     * @param bool $onlyNextRequest if true(default), se the notification in session only for the next request
-     *
+     * @param $layout
+     * @param string $text notification's message
+     * @param null $sounds
+     * @param null $soundsVolume
      */
-    public function add($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null)
+    public function add($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null): void
     {
         if ($type == '') {
             $type = 'info';
@@ -185,14 +186,14 @@ class Notifier
         if ($sounds !== null) {
             $notification['sources'] = [
                 'sounds' => [$sounds],
-                'soundsVolume' => $soundsVolume !== null ? $soundsVolume : 0.5,
+                'soundsVolume' => $soundsVolume ?? 0.5,
             ];
         }
 
         $this->notifications[] = $notification;
     }
 
-    public function addForNextRequest($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null)
+    public function addForNextRequest($theme, $timeout, $type, $layout, $text, $sounds = null, $soundsVolume = null): void
     {
         if ($type == '') {
             $type = 'info';
@@ -212,7 +213,7 @@ class Notifier
         if ($sounds !== null) {
             $notification['sources'] = [
                 'sounds' => [$sounds],
-                'soundsVolume' => $soundsVolume !== null ? $soundsVolume : 0.5,
+                'soundsVolume' => $soundsVolume ?? 0.5,
             ];
         }
 
@@ -227,13 +228,26 @@ class Notifier
     }
 
     /**
-     * Shortcut for adding an info notification
+     * Shortcut for adding an info notification with condition
      *
-     * @param string $message The notification's message
-     * @param string $title The notification's title
+     * @param bool $condition
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
      * @param array $options
      */
-    public function info($text, $onlyNextRequest = false, array $options = [])
+    public function ifInfo(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
+    {
+        $this->info($text, $onlyNextRequest, $options);
+    }
+
+    /**
+     * Shortcut for adding an info notification
+     *
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
+     * @param array $options
+     */
+    public function info($text, bool $onlyNextRequest = false, array $options = []): void
     {
         $theme = (isset($options['theme']) && $options['theme'] != '') ? $options['theme'] : 'metroui';
         $timeout = (isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout'])) ? $options['timeout'] : false;
@@ -246,13 +260,26 @@ class Notifier
     }
 
     /**
-     * Shortcut for adding an error notification
+     * Shortcut for adding an error notification with condition
      *
-     * @param string $message The notification's message
-     * @param string $title The notification's title
+     * @param bool $condition
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
      * @param array $options
      */
-    public function error($text, $onlyNextRequest = false, array $options = [])
+    public function ifError(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
+    {
+        $this->error($text, $onlyNextRequest, $options);
+    }
+
+    /**
+     * Shortcut for adding an error notification
+     *
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
+     * @param array $options
+     */
+    public function error($text, bool $onlyNextRequest = false, array $options = []): void
     {
         $theme = (isset($options['theme']) && $options['theme'] != '') ? $options['theme'] : 'metroui';
         $timeout = (isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout'])) ? $options['timeout'] : 0;
@@ -265,13 +292,26 @@ class Notifier
     }
 
     /**
-     * Shortcut for adding a warning notification
+     * Shortcut for adding a warning notification with condition
      *
-     * @param string $message The notification's message
-     * @param string $title The notification's title
+     * @param bool $condition
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
      * @param array $options
      */
-    public function warning($text, $onlyNextRequest = false, array $options = [])
+    public function ifWarning(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
+    {
+        $this->warning($text, $onlyNextRequest, $options);
+    }
+
+    /**
+     * Shortcut for adding a warning notification
+     *
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
+     * @param array $options
+     */
+    public function warning($text, bool $onlyNextRequest = false, array $options = []): void
     {
         $theme = (isset($options['theme']) && $options['theme'] != '') ? $options['theme'] : 'metroui';
         $timeout = (isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout'])) ? $options['timeout'] : 0;
@@ -284,13 +324,26 @@ class Notifier
     }
 
     /**
-     * Shortcut for adding a success notification
+     * Shortcut for adding a success notification with condition
      *
-     * @param string $message The notification's message
-     * @param string $title The notification's title
+     * @param bool $condition
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
      * @param array $options
      */
-    public function success($text, $onlyNextRequest = false, array $options = [])
+    public function ifSuccess(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
+    {
+        $this->success($text, $onlyNextRequest, $options);
+    }
+
+    /**
+     * Shortcut for adding a success notification
+     *
+     * @param $text notification's message
+     * @param bool $onlyNextRequest
+     * @param array $options
+     */
+    public function success($text, $onlyNextRequest = false, array $options = []): void
     {
         $theme = (isset($options['theme']) && $options['theme'] != '') ? $options['theme'] : 'metroui';
         $timeout = (isset($options['timeout']) && $options['timeout'] != '' && is_int($options['timeout'])) ? $options['timeout'] : 0;
@@ -306,29 +359,38 @@ class Notifier
     /**
      * Clear all notifications
      *
-     * @param bool $withSession if true (default) clean notifications in session too.
      */
-    public function clear()
+    public function clear(): void
     {
         $this->notifications = [];
     }
 
-    public function clearFlashed(bool $withSession = true)
+    /**
+     * @param bool $withSession
+     * @return void
+     */
+    public function clearFlashed(bool $withSession = true): void
     {
         $this->flashedNotifications = [];
 
-        if ($withSession) {
-            $this->session->forget('laravel::flash-notifications');
+        if (!$withSession) {
+            return;
         }
+        $this->session->forget('laravel::flash-notifications');
     }
 
-    public function clearAll(bool $withSession = true)
+    /**
+     * @param bool $withSession
+     * @return void
+     */
+    public function clearAll(bool $withSession = true): void
     {
         $this->notifications = [];
         $this->flashedNotifications = [];
 
-        if ($withSession) {
-            $this->session->forget('laravel::flash-notifications');
+        if (!$withSession) {
+            return;
         }
+        $this->session->forget('laravel::flash-notifications');
     }
 }

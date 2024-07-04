@@ -65,6 +65,31 @@ Call one of these methods in your controllers to insert a notification:
   - `Notify::add($type: warning|error|info|success, $message, $title = null, $options = [])` - add a notification
   - `Notify::clear()` - clear all current notification
 
+If you need to show the notification only if a particular condition is true, you can use these methods:
+
+- `Notify::ifWarning($condition, $message, $title = null, $options = [])` - add a warning notification if $condition is true
+- `Notify::ifError($condition, $message, $title = null, $options = [])` - add an error notification if $condition is true
+- `Notify::ifInfo($condition, $message, $title = null, $options = [])` - add an info notification if $condition is true
+- `Notify::ifSuccess($condition, $message, $title = null, $options = [])` - add a success notification if $condition is true
+
+Example:
+instead of use this:
+
+```php
+if($condition){
+    Notify::success('You have an email!', 'New Email');
+}
+```
+
+you can use this:
+
+```php
+Notify::IfSuccess($condition, 'You have an email!', 'New Email');
+```
+
+```php
+{!! notify() !!}
+
 ```
 ### EXAMPLE:
 
