@@ -237,6 +237,9 @@ class Notifier
      */
     public function ifInfo(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
     {
+        if (!$condition) {
+            return;
+        }
         $this->info($text, $onlyNextRequest, $options);
     }
 
@@ -269,6 +272,9 @@ class Notifier
      */
     public function ifError(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
     {
+        if (!$condition) {
+            return;
+        }
         $this->error($text, $onlyNextRequest, $options);
     }
 
@@ -301,6 +307,9 @@ class Notifier
      */
     public function ifWarning(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
     {
+        if (!$condition) {
+            return;
+        }
         $this->warning($text, $onlyNextRequest, $options);
     }
 
@@ -333,6 +342,9 @@ class Notifier
      */
     public function ifSuccess(bool $condition, $text, bool $onlyNextRequest = false, array $options = []): void
     {
+        if (!$condition) {
+            return;
+        }
         $this->success($text, $onlyNextRequest, $options);
     }
 
