@@ -1,9 +1,17 @@
 # Changelog
 
 All Notable changes to `laravel-notifier` will be documented in this file
-## 1.5.0 - 2025-04-04
+## 1.8.0 - 2025-04-04
 
 - Added support for laravel 12
+
+## 1.7.0 - 2024-05-20
+
+- Added support for laravel 11
+
+## 1.6.0 - 2023-03-21
+
+- Added support for laravel 11
 
 ## 1.5.0 - 2022-04-05
 
