@@ -58,18 +58,44 @@ You must install this service provider.
 ## USAGE
 
 Call one of these methods in your controllers to insert a notification:
-  - `Notify::warning($message, $title = null, $options = [])` - add a warning notification
-  - `Notify::error($message, $title = null, $options = [])` - add an error notification
-  - `Notify::info($message, $title = null, $options = [])` - add an info notification
-  - `Notify::success($message, $title = null, $options = [])` - add a success notification
-  - `Notify::add($type: warning|error|info|success, $message, $title = null, $options = [])` - add a notification
+
+- `Notify::warning($message, $onlyNextRequest = false, $options = [])` - add a warning notification
+- `Notify::error($message, $onlyNextRequest = false, $options = [])` - add an error notification
+- `Notify::info($message, $onlyNextRequest = false, $options = [])` - add an info notification
+- `Notify::success($message, $onlyNextRequest = false, $options = [])` - add a success notification
+- `Notify::add($theme, $timeout, $type: warning|error|info|success, $layout, $text, $sounds = null, $soundsVolume = null)` - add a notification
   - `Notify::clear()` - clear all current notification
+
+If you need to show the notification only if a particular condition is true, you can use these methods:
+
+- `Notify::ifWarning($condition, $message, $onlyNextRequest = false, $options = [])` - add a warning notification if $condition is true
+- `Notify::ifError($condition, $message, $onlyNextRequest = false, $options = [])` - add an error notification if $condition is true
+- `Notify::ifInfo($condition, $message, $onlyNextRequest = false, $options = [])` - add an info notification if $condition is true
+- `Notify::ifSuccess($condition, $message, $onlyNextRequest = false, $options = [])` - add a success notification if $condition is true
+
+Example:
+instead of use this:
+
+```php
+if($condition){
+    Notify::success('You have an email!');
+}
+```
+
+you can use this:
+
+```php
+Notify::IfSuccess($condition, 'You have an email!');
+```
+
+```php
+{!! notify() !!}
 
 ```
 ### EXAMPLE:
 
 ```php
-Notify::info('You have an email!', 'New Email');
+Notify::info('You have an email!');
 ```
 
 ## Change log
